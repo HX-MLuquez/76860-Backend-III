@@ -52,11 +52,24 @@ app.get("/saludo", (req, res) => {
 //! ╚══════════════════════════════════════════════════╝
 
 app.get("/calculo-child", (req, res) => {
- 
+  const child = fork("./src/proceso_hijo.js"); // Obtiene ese proceso hijo
+
+  child.send(`Iniciar cálculo desde proceso principal PID ${process.pid}`);
+
+  child.on("message", (msg) => {
+    if (msg.type === "resultado") {
+      res.status(200).send(`Resultado del cálculo: ${msg.result}`);
+    }
+  });
+  child.on("error", (error) => {
+    console.error("Error en el proceso hijo:", error);
+    res.status(500).send("Error en el cálculo");
+  });
 });
 
 module.exports = app;
 
 /*
-cd "OneDrive/Escritorio/CODERHOUSE/[ 76860 BACK-III SAB 11-30 ]/[ 76860 Back-III CLASE ]/CLASE-01"
+cd "OneDrive/Escritorio/CODERHOUSE/76860 BACK-III JUEVES 19-00/76860 Back-III CLASE/CLASE-01/CHILD-PROCESS"
+
 */

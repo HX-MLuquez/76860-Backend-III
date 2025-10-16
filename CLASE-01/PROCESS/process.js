@@ -4,14 +4,30 @@
 //* ║═════════════════                ═════════════════║
 //! ╚══════════════════════════════════════════════════╝
 
+// console.log(global)
+// console.log("00 process", process)
 
+console.log("01 cwd", process.cwd());
+// 01 cwd C:\Users\mauuu\OneDrive\Escritorio\CODERHOUSE\76860 BACK-III JUEVES 19-00\76860 Back-III CLASE\CLASE-01\PROCESS
+
+console.log("02 ID", process.pid);
+// 02 ID 21712
+
+console.log("03 ID", process.argv);
+
+    // "start:dev": "node index.js --mode dev",
+    // "start:prod": "node index.js --mode prod",
+
+
+    
 /*
-[
-  'C:\\Users\\mauuu\\AppData\\Roaming\\nvm\\v20.17.0\\node.exe',
-  'C:\\Users\\mauuu\\OneDrive\\Escritorio\\CODERHOUSE\\[ 76860 BACK-III SAB 11-30 ]\\[ 76860 Back-III CLASE ]\\
-CLASE-01\\PROCESS\\process.js',
+03 ID [
+  'C:\\Users\\mauuu\\AppData\\Roaming\\nvm\\v24.8.0\\node.exe',
+  'C:\\Users\\mauuu\\OneDrive\\Escritorio\\CODERHOUSE\\76860 BACK-III JUEVES 19-00\\76860 Back-III CLASE\\CLASE-01\\PROCESS\\process.js',  
   'hola',
-  'mundo'
+  'mundo',
+  'como',
+  'va'
 ]
 */
 
