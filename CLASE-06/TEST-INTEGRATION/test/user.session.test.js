@@ -14,20 +14,137 @@ const MONGO_URI =
 // Instancia de supertest apuntando a tu servidor
 // const request = supertest("http://localhost:8080");
 //* CODE AQUI:
+const requestSupertestServerCloneMoreTest = supertest(app);
 
 //* request {} <- es nuestro Servidor Test <---- request===appServerTest
 
 describe("Testing users Api", function () {
-  
+  this.timeout(6000); // Tolerancia de 6 segundos para cada test
+  before(async function () {
+    //* ANTES DE TODOS LOS TESTS
+    // Conexión a MongoDB antes de correr los tests
+    await mongoose
+      .connect(MONGO_URI)
+      .then(() => {
+        console.log("Connected to MongoDB for testing");
+      })
+      .catch((err) => {
+        console.error("Error connecting to MongoDB for testing:", err);
+      });
+    // Usuario de prueba
+    this.mockUser = {
+      first_name: "Usuario de prueba 2",
+      last_name: "Apellido de prueba 2",
+      email: "correodeprueba2@gmail.com",
+      password: "123456",
+    };
+    this.cookie = null;
+    /*
+    cookie:
+    {
+      name: 'coderCookie',
+      value: 'eyJhbGciOi...',
+    };
+    */
+  });
+  after(async function () {
+    //* DESPUÉS DE TODOS LOS TESTS
+    // Limpia la colección de usuarios después de correr los tests
+    await mongoose.connection.collection("users").deleteMany({
+      email: this.mockUser.email,
+    });
+
+    // Cierra la conexión a MongoDB después de correr todos los tests
+    await mongoose.connection.close();
+  });
+
+  // Test 01 - Registro de un User
+  it("Test Registro Usuario: Debe poder registrar correctamente un usuario", async function () {
+    const response = await requestSupertestServerCloneMoreTest
+      .post("/api/sessions/register")
+      .send(this.mockUser); // Enviamos el usuario de prueba por body
+    // console.log("----->", response);
+    expect(response.statusCode).to.eql(200);
+  });
+
+  // Test 02 - Login de un User
+  it("Test Login Usuario: Debe poder hacer login correctamente con el usuario registrado previamente y obtener la cookie", async function () {
+    const mockLogin = {
+      email: this.mockUser.email,
+      password: this.mockUser.password,
+    };
+
+    const result = await requestSupertestServerCloneMoreTest
+      .post("/api/sessions/login")
+      .send(mockLogin);
+    // console.log("result.header: ", result.header);
+    /*
+    'set-cookie': [
+    'coderCookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVXN1YXJpbyBkZSBwcnVlYmEgMiBBcGVsbGlkbyBkZSBwcnVlYmEgMiIsInJvbGUiOiJ1c2VyIiwiZW1haWwiOiJjb3JyZW9kZXBydWViYTJAZ21haWwuY29tIiwiaWF0IjoxNzYwNDg1MjkxLCJleHAiOjE3NjA0ODg4OTF9.c4xiBEVG4J9mijyKspFdV1LpCWxjzNYeZYy3j87y7kY; Max-Age=3600; Path=/; Expires=Wed, 15 Oct 2025 00:41:31 GMT'
+  ],
+    */
+    const cookieResult = result.header["set-cookie"][0]; // -> guardamos el elemento 0 del array
+    // 'coderCookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVXN1YXJpbyBkZSBwcnVlYmEgMiBBcGVsbGlkbyBkZSBwcnVlYmEgMiIsInJvbGUiOiJ1c2VyIiwiZW1haWwiOiJjb3JyZW9kZXBydWViYTJAZ21haWwuY29tIiwiaWF0IjoxNzYwNDg1MjkxLCJleHAiOjE3NjA0ODg4OTF9.c4xiBEVG4J9mijyKspFdV1LpCWxjzNYeZYy3j87y7kY; Max-Age=3600; Path=/; Expires=Wed, 15 Oct 2025
+    const cookieData = cookieResult.split("="); // -> ['coderCookie', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...']
+    this.cookie = {
+      name: cookieData[0], // -> 'coderCookie'
+      value: cookieData[1].split(";")[0], // -> 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+    };
+    expect(this.cookie.name).to.eql("coderCookie");
+    expect(this.cookie.value).to.be.ok;
+  });
+  it("Test Ruta de Mascotas: Debe poder crear una mascota con imagen", async function () {
+    // Mock de mascota a crear
+    const mockPet = {
+      name: "Nemo",
+      specie: "Pez",
+      birthDate: "10-11-2022",
+    };
+
+    // Realiza la petición POST con campos y archivo adjunto
+    const result = await requestSupertestServerCloneMoreTest
+      .post("/api/pets/withimage")
+      .set("Cookie", `${this.cookie.name}=${this.cookie.value}`) // -> 'coderCookie=eyJhbGciOi...'
+      .field("name", mockPet.name)
+      .field("specie", mockPet.specie)
+      .field("birthDate", mockPet.birthDate)
+      .attach("image", "./test/files/coderDog.jpg");
+
+    expect(result.status).to.be.eql(200);
+    expect(result.body.payload).to.have.property("_id");
+    expect(result.body.payload.name).to.eql(mockPet.name);
+    expect(result.body.payload.image).to.be.ok;
+  });
 });
 
 /*
+result.header:  {
+  'x-powered-by': 'Express',
+  'set-cookie': [
+    'coderCookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVXN1YXJpbyBkZSBwcnVlYmEgMiBBcGVsbGlkbyBkZSBwcnVlYmEgMiIsInJvbGUiOiJ1c2VyIiwiZW1haWwiOiJjb3JyZW9kZXBydWViYTJAZ21haWwuY29tIiwiaWF0IjoxNzYzNjgxMjA0LCJleHAiOjE3NjM2ODQ4MDR9.IzNsTB5vW20sVmnpVs9SrFFI1K0dfVEU95LBiMQ9Hk0; Max-Age=3600; Path=/; Expires=Fri, 21 Nov 2025 00:26:44 GMT'
+  ],
+  'content-type': 'application/json; charset=utf-8',
+  'content-length': '42',
+  etag: 'W/"2a-+4Ut8N7VOzSapTSdfsMKnJhY+do"',
+  date: 'Thu, 20 Nov 2025 23:26:44 GMT',
+  connection: 'close'
+}
+*/
+
+/*
 requestSupertestServerCloneMoreTest {
-  métodos
-  routes de nuestra app
+  métodos propios de supertest para hacer requests HTTP
+  + .get()
+  + .post()
+  + .put()
+  + .delete()
+  + .set()
+  + .expect()
+  tiene la instancia de nuestro servidor express
+  tiene todas las routes de nuestra app
 }
 
-describe{
+describe {
 
     conectado a la base de datos
     mockUser {}
