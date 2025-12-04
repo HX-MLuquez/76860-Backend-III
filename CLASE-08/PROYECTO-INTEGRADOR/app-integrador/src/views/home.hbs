@@ -1,0 +1,32 @@
+<!-- HOME.HBS -->
+  {{> navbar}}
+  
+  <div class="container">
+    <div class="main-content fade-in">
+      <h1>Bienvenido a la App Integradora</h1>
+      
+      <div class="welcome-card">
+        {{#if user}}
+          <div class="user-info">
+            <p>🌟 <strong>¡Hola {{user.username}}!</strong></p>
+            <p>Estás en tu cuenta activa. ¡Explora todas las funcionalidades disponibles!</p>
+          </div>
+          <div style="margin-top: 2rem;">
+            <a href="/auth/profile" class="btn btn-primary">Ver mi Perfil</a>
+          </div>
+        {{else}}
+          <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #2d5016;">
+            Descubre todo lo que puedes hacer con nuestra plataforma
+          </p>
+          <p style="margin-bottom: 2rem; color: #5a6c57;">
+            Inicia sesión para acceder a tu cuenta o regístrate para comenzar
+          </p>
+          <div>
+            <a href="/auth/login" class="btn btn-primary">Iniciar Sesión</a>
+            <a href="/auth/register" class="btn btn-secondary">Registrarse</a>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+

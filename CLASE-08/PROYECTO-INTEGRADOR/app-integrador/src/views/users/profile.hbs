@@ -1,0 +1,42 @@
+{{> navbar}}
+  
+  <div class="container">
+    <div class="main-content fade-in">
+      <h1>Mi Perfil</h1>
+      
+      {{#if user}}
+        <div class="profile-card">
+          <div style="text-align: center; margin-bottom: 2rem;">
+            <div style="width: 80px; height: 80px; background: linear-gradient(45deg, #32cd32, #9acd32); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">
+              {{user.username}}
+            </div>
+          </div>
+          
+          <div class="user-info">
+            <p><strong>👤 Nombre de Usuario:</strong> {{user.username}}</p>
+            <p><strong>📧 Email:</strong> {{user.email}}</p>
+            <p><strong>🔑 Rol:</strong> 
+              <span style="background: linear-gradient(45deg, #9acd32, #32cd32); color: white; padding: 0.2rem 0.8rem; border-radius: 15px; font-size: 0.9rem;">
+                {{user.role}}
+              </span>
+            </p>
+          </div>
+          
+          <div style="text-align: center; margin-top: 2rem;">
+            <a href="/auth/edit-profile" class="btn btn-primary">Editar Perfil</a>
+            <a href="/" class="btn btn-secondary">Volver al Inicio</a>
+          </div>
+        </div>
+      {{else}}
+        <div class="profile-card" style="text-align: center;">
+          <p style="font-size: 1.2rem; color: #721c24; margin-bottom: 2rem;">
+            ⚠️ No hay usuario autenticado
+          </p>
+          <p style="margin-bottom: 2rem; color: #5a6c57;">
+            Necesitas iniciar sesión para ver tu perfil
+          </p>
+          <a href="/auth/login" class="btn btn-primary">Iniciar Sesión</a>
+        </div>
+      {{/if}}
+    </div>
+  </div>

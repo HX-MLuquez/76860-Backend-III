@@ -1,0 +1,27 @@
+<nav class="navbar">
+  <div class="container">
+    <ul>
+      <li>
+        <a href="/" class="navbar-brand">🌱 App Integradora</a>
+      </li>
+      <li>
+        <div class="navbar-menu">
+          <a href="/">Inicio</a>
+          
+          {{#if user}}
+            <div class="user-greeting">
+              👋 ¡Hola {{user.username}}!
+            </div>
+            <a href="/auth/profile">Mi Perfil</a>
+            <a href="/auth/logout" class="btn-logout">Cerrar Sesión</a>
+          {{else}}
+            <a href="/auth/login">Iniciar Sesión</a>
+            <a href="/auth/register">Registrarse</a>
+          {{/if}}
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+

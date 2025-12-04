@@ -1,0 +1,331 @@
+/* Reset y configuración base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f8fffe 0%, #f0fff4 50%, #fffef7 100%);
+  min-height: 100vh;
+  color: #2d5016;
+  line-height: 1.6;
+}
+
+/* Contenedor principal */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.main-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Navbar */
+.navbar {
+  background: linear-gradient(90deg, #e8f8e8 0%, #f5ffdc 50%, #f0fff0 100%);
+  box-shadow: 0 2px 10px rgba(45, 80, 22, 0.1);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2d5016;
+  text-decoration: none;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #2d5016;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.navbar a:hover {
+  background-color: #d4edda;
+  color: #155724;
+  transform: translateY(-1px);
+}
+
+.navbar .user-greeting {
+  color: #2d5016;
+  font-weight: 600;
+  background: linear-gradient(45deg, #fff8dc, #f0fff0);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid #c3e6cb;
+}
+
+/* Títulos */
+h1 {
+  color: #2d5016;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  background: linear-gradient(45deg, #228b22, #9acd32);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+h2 {
+  color: #2d5016;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Tarjetas y contenedores */
+.welcome-card {
+  background: linear-gradient(135deg, #f0fff4 0%, #fffef7 100%);
+  border: 2px solid #c3e6cb;
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(45, 80, 22, 0.1);
+  margin-bottom: 2rem;
+}
+
+.profile-card {
+  background: linear-gradient(135deg, #f8fff8 0%, #fffef9 100%);
+  border: 2px solid #b8e6b8;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(45, 80, 22, 0.1);
+  margin-bottom: 2rem;
+}
+
+/* Formularios */
+.form-container {
+  background: linear-gradient(135deg, #f8fff8 0%, #fffef9 100%);
+  border: 2px solid #c3e6cb;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(45, 80, 22, 0.1);
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #2d5016;
+  font-weight: 600;
+}
+
+.form-control {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #c3e6cb;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ffffff, #f8fff8);
+  color: #2d5016;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #9acd32;
+  box-shadow: 0 0 10px rgba(154, 205, 50, 0.3);
+  background: #ffffff;
+}
+
+.form-control::placeholder {
+  color: #6c7b7f;
+}
+
+/* Botones */
+.btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0.5rem;
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #32cd32, #9acd32);
+  color: white;
+  box-shadow: 0 4px 15px rgba(50, 205, 50, 0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(45deg, #228b22, #7ba428);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(50, 205, 50, 0.4);
+}
+
+.btn-secondary {
+  background: linear-gradient(45deg, #f0fff0, #fff8dc);
+  color: #2d5016;
+  border: 2px solid #c3e6cb;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(45deg, #e8f8e8, #f5ffdc);
+  transform: translateY(-1px);
+}
+
+.btn-logout {
+  background: linear-gradient(45deg, #ffeaa7, #fab1a0);
+  color: #2d3436;
+}
+
+.btn-logout:hover {
+  background: linear-gradient(45deg, #fdcb6e, #e17055);
+}
+
+/* Mensajes */
+.message {
+  padding: 1rem;
+  border-radius: 10px;
+  margin: 1rem 0;
+  text-align: center;
+  font-weight: 500;
+}
+
+.message-success {
+  background: linear-gradient(135deg, #d4edda, #c3e6cb);
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message-error {
+  background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Información del usuario */
+.user-info {
+  background: linear-gradient(135deg, #f0fff4, #fffef7);
+  padding: 1.5rem;
+  border-radius: 10px;
+  border-left: 4px solid #9acd32;
+  margin: 1rem 0;
+}
+
+.user-info p {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.user-info strong {
+  color: #2d5016;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .navbar-menu {
+    width: 100%;
+    justify-content: center;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+
+  .welcome-card,
+  .profile-card,
+  .form-container {
+    padding: 1.5rem;
+  }
+}
+
+/* Animaciones sutiles */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* ROUTE ERROR */
+.error-container{
+  padding: 2rem;
+  border: 1px solid #e74c3c;
+  border-radius: 10px;
+  background: #fff3f3;
+  box-shadow: 0 4px 10px rgba(231, 76, 60, 0.1);
+}
+.error-code {
+  font-size: 4rem;
+  color: #e74c3c;
+  margin: 0;
+}
+.error-message {
+  color: #555;
+  font-size: 1.2rem;
+  margin: 20px 0;
+}
+.details {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 20px 0;
+}
+.back-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: #3498db;
+  text-decoration: none;
+}
+.back-link:hover {
+  text-decoration: underline;
+}

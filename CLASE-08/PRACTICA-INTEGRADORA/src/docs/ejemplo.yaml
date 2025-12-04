@@ -1,0 +1,19 @@
+paths:
+  /api/ejemplo/:
+    get:
+      summary: Obtiene un ejemplo de recurso.
+      tags:
+        - Ejemplo
+      responses:
+        "200":
+          description: La operación fue exitosa, se retorna el recurso de ejemplo.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    example: "Este es un recurso de ejemplo"
+        "500":
+          description: Error inesperado en el servidor, no se pudo manejar el proceso.
